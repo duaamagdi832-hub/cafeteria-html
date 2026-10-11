@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>كافتريا الركن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF2EC;--card:#fff;--ink:#14201F;--mute:#5B6B68;--brand:#0F3D3A;--onbrand:#F6F1E3;--sun:#F2B138;--red:#D64933;--line:#cfd8d3;--ok:#2E7D4F;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1A19;--card:#172826;--ink:#EDF2EE;--mute:#9DB1AC;--brand:#1B5A55;--line:#2a403d}}
+:root[data-theme="dark"]{--bg:#0E1A19;--card:#172826;--ink:#EDF2EE;--mute:#9DB1AC;--brand:#1B5A55;--line:#2a403d}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,sans-serif;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));min-height:100%}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+header{background:var(--brand);color:var(--onbrand);padding:18px 16px 0;position:sticky;top:0;z-index:5;padding-top:calc(18px + env(safe-area-inset-top,0px))}
+.top{display:flex;justify-content:space-between;align-items:center}
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px}
+.sub{font-size:13px;opacity:.75}
+.modes{display:flex;gap:4px;background:rgba(0,0,0,.25);border-radius:99px;padding:3px}
+.modes button{padding:6px 14px;border-radius:99px;font-size:14px;font-weight:600;color:var(--onbrand)}
+.modes button.on{background:var(--sun);color:#14201F}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:14px -16px 0;padding:0 16px}
+.tabs button{padding:10px 16px;font-weight:600;white-space:nowrap;color:var(--onbrand);opacity:.7;border-bottom:4px solid transparent}
+.tabs button.on{opacity:1;border-color:var(--sun)}
+main{padding:16px;max-width:720px;margin:auto}
+.row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:2px dotted var(--line)}
+.ico{font-size:34px;width:52px;height:52px;display:grid;place-items:center;background:var(--card);border-radius:14px}
+.nm{flex:1}.nm b{font-size:17px;display:block}.nm span{font-size:13px;color:var(--mute)}
+.pr{font-weight:800;color:var(--red);min-width:52px;text-align:center}
+.add{background:var(--brand);color:var(--onbrand);border-radius:99px;padding:8px 16px;font-weight:600}
+.qty{display:flex;align-items:center;gap:6px;background:var(--card);border-radius:99px;padding:2px}
+.qty button{width:34px;height:34px;border-radius:50%;background:var(--brand);color:var(--onbrand);font-size:20px;font-weight:800}
+.qty span{min-width:20px;text-align:center;font-weight:800}
+.bar{position:fixed;inset-inline:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--sun);color:#14201F;border-radius:18px;padding:14px 18px;display:flex;justify-content:space-between;font-weight:800;font-size:17px;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:6}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10;display:flex;align-items:flex-end}
+.panel{background:var(--bg);width:100%;max-height:88%;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-width:720px;margin:auto}
+.panel h2{margin-bottom:8px}
+input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin:6px 0}
+.tot{display:flex;justify-content:space-between;font-size:20px;font-weight:800;padding:14px 0}
+.go{width:100%;background:var(--brand);color:var(--onbrand);padding:14px;border-radius:14px;font-weight:800;font-size:17px}
+.ghost{width:100%;padding:10px;color:var(--mute)}
+.order{background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px;border-inline-start:6px solid var(--sun)}
+.order.ready{border-color:var(--ok)}.order.done{opacity:.55;border-color:var(--line)}
+.oh{display:flex;justify-content:space-between;font-weight:800;margin-bottom:6px}
+.st{font-size:13px;font-weight:600;padding:2px 10px;border-radius:99px;background:var(--sun);color:#14201F}
+.ready .st{background:var(--ok);color:#fff}.done .st{background:var(--line);color:var(--ink)}
+.oa{display:flex;gap:8px;margin-top:10px}.oa button{flex:1;padding:9px;border-radius:10px;background:var(--brand);color:var(--onbrand);font-weight:600}
+.empty{text-align:center;color:var(--mute);padding:50px 10px}
+.toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));inset-inline:16px;margin:auto;max-width:360px;background:var(--ok);color:#fff;padding:12px;border-radius:12px;text-align:center;font-weight:800;z-index:20}
+@media (prefers-reduced-motion:no-preference){.panel{animation:up .22s ease-out}@keyframes up{from{transform:translateY(40px);opacity:0}}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div><h1>كافتريا الركن</h1><div class="sub" id="sub">اطلب وإحنا نجهزه</div></div>
+    <div class="modes"><button id="mC" class="on">العميل</button><button id="mK">المطبخ</button></div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+</header>
+<main id="main"></main>
+<div id="root"></div>
+
+<script>
+const MENU=[
+{c:"ساخن",i:[["شاي","☕","شاي كشري أو بالنعناع",10],["قهوة تركي","☕","سادة أو مظبوط",20],["نسكافيه","☕","بالحليب",25],["ينسون","🍵","مهدّي",12],["سحلب","🥛","بالمكسرات",30]]},
+{c:"بارد",i:[["عصير مانجو","🥭","طازج",35],["عصير ليمون","🍋","بالنعناع",25],["عصير فراولة","🍓","طازج",35],["آيس كوفي","🧋","مثلج",40],["مياه معدنية","💧","",8]]},
+{c:"ساندويتشات",i:[["فول","🫘","بالزيت الحار",15],["طعمية","🧆","مع سلطة وطحينة",15],["جبنة رومي","🧀","على عيش فينو",30],["شاورما فراخ","🌯","بالثومية",60],["برجر لحم","🍔","مع بطاطس",75]]},
+{c:"حلويات",i:[["كيكة شيكولاتة","🍰","شريحة",35],["كنافة","🥮","بالقشطة",40],["دونتس","🍩","بالسكر",20],["بسبوسة","🍯","سادة أو بالقشطة",25]]}
+];
+const $=s=>document.querySelector(s);
+let mode="C",tab=0,cart={},sheet=null,toast="",orders=[];
+const S={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+orders=S.get("orders",[]);
+const key=(c,n)=>c+"|"+n;
+const items=()=>{const a=[];MENU.forEach((g,gi)=>g.i.forEach(x=>{const q=cart[key(gi,x[0])];if(q)a.push({n:x[0],e:x[1],p:x[3],q})}));return a};
+const total=a=>a.reduce((s,x)=>s+x.p*x.q,0);
+const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function ch(k,d){cart[k]=(cart[k]||0)+d;if(cart[k]<=0)delete cart[k];render()}
+function render(){
+  $("#mC").className=mode=="C"?"on":"";$("#mK").className=mode=="K"?"on":"";
+  $("#tabs").style.display=mode=="C"?"flex":"none";
+  $("#sub").textContent=mode=="C"?"اطلب وإحنا نجهزه":"طلبات الزباين";
+  $("#tabs").innerHTML=MENU.map((g,i)=>`<button class="${i==tab?"on":""}" data-t="${i}">${g.c}</button>`).join("");
+  const m=$("#main");
+  if(mode=="C"){
+    m.innerHTML=MENU[tab].i.map(x=>{const q=cart[key(tab,x[0])]||0;
+      return `<div class="row"><div class="ico">${x[1]}</div><div class="nm"><b>${x[0]}</b><span>${x[2]}</span></div><div class="pr">${x[3]} ج</div>
+      ${q?`<div class="qty"><button data-d="-1" data-k="${key(tab,x[0])}" aria-label="إنقاص">−</button><span>${q}</span><button data-d="1" data-k="${key(tab,x[0])}" aria-label="زيادة">+</button></div>`:`<button class="add" data-d="1" data-k="${key(tab,x[0])}">أضف</button>`}</div>`}).join("");
+  }else{
+    const live=orders.filter(o=>o.s!="done"),old=orders.filter(o=>o.s=="done").slice(0,5);
+    const L={new:"جديد",ready:"جاهز",done:"تم التسليم"};
+    const card=o=>`<div class="order ${o.s=="new"?"":o.s}"><div class="oh"><span>طلب #${o.id} — ${esc(o.who)}</span><span class="st">${L[o.s]}</span></div>
+      <div>${o.items.map(x=>`${x.e} ${esc(x.n)} × ${x.q}`).join("<br>")}</div><div style="margin-top:6px;font-weight:800">${o.total} ج</div>
+      ${o.s!="done"?`<div class="oa">${o.s=="new"?`<button data-o="${o.id}" data-s="ready">جاهز</button>`:`<button data-o="${o.id}" data-s="done">تم التسليم</button>`}</div>`:""}</div>`;
+    m.innerHTML=(live.length||old.length)?live.map(card).join("")+old.map(card).join(""):`<div class="empty">مفيش طلبات دلوقتي.<br>الطلبات الجديدة هتظهر هنا.</div>`;
+    const n=orders.filter(o=>o.s=="new").length;$("#sub").textContent=n?`${n} طلب جديد`:"مفيش طلبات جديدة";
+  }
+  const c=count(),r=$("#root");
+  let h=(mode=="C"&&c&&!sheet)?`<button class="bar" id="open"><span>عرض الطلب (${c})</span><span>${total(items())} ج</span></button>`:"";
+  if(sheet=="cart")h+=cartSheet();
+  if(toast)h+=`<div class="toast">${toast}</div>`;
+  r.innerHTML=h;
+}
+function cartSheet(){
+  const a=items();
+  return `<div class="sheet" id="bg"><div class="panel"><h2>طلبك</h2>
+  ${a.map(x=>`<div class="row"><div class="ico">${x.e}</div><div class="nm"><b>${x.n}</b><span>${x.p} ج للواحد</span></div><div class="pr">${x.p*x.q} ج</div></div>`).join("")||'<div class="empty">الطلب فاضي</div>'}
+  <div class="tot"><span>الإجمالي</span><span>${total(a)} ج</span></div>
+  <input id="who" placeholder="اسمك أو رقم الترابيزة" maxlength="30" value="${esc(S.get("who",""))}">
+  <button class="go" id="send" ${a.length?"":"disabled"}>أرسل الطلب</button>
+  <button class="ghost" id="close">رجوع للقائمة</button></div></div>`;
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,#bg");if(!t)return;
+  if(t.dataset.t!=null){tab=+t.dataset.t}
+  else if(t.dataset.k){ch(t.dataset.k,+t.dataset.d);return}
+  else if(t.id=="mC")mode="C";else if(t.id=="mK")mode="K";
+  else if(t.id=="open")sheet="cart";
+  else if(t.id=="close")sheet=null;
+  else if(t.id=="bg"&&e.target.id=="bg")sheet=null;
+  else if(t.id=="send"){
+    const who=($("#who").value||"").trim();
+    if(!who){$("#who").focus();$("#who").placeholder="اكتب اسمك أو رقم الترابيزة";return}
+    const a=items();S.set("who",who);
+    const id=(orders.reduce((m,o)=>Math.max(m,o.id),0))+1;
+    orders.unshift({id,who,items:a,total:total(a),s:"new"});S.set("orders",orders);
+    cart={};sheet=null;toast=`تم إرسال طلب #${id}`;setTimeout(()=>{toast="";render()},2500);
+  }
+  else if(t.dataset.o){const o=orders.find(x=>x.id==t.dataset.o);o.s=t.dataset.s;S.set("orders",orders)}
+  else return;
+  render();
+});
+render();
+</script>
+</body>
+</html>
